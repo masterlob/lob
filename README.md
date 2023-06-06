@@ -1,6 +1,6 @@
 # Line of Business App
 
-A overengineered sample app, showcasing how to build a larger modulithic CRUD-Application for maintaining master data.
+An overengineered sample app, showcasing how to build a larger modulithic CRUD-Application for maintaining master data.
 
 ## Stack
 
