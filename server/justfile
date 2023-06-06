@@ -1,0 +1,20 @@
+test:
+	@echo "Running tests with coverage"
+	go test -cover ./...
+
+lint: prerequisites
+	@echo "Running linter"
+	golangci-lint run ./...
+	go vet ./...
+
+build:
+	@echo "Building binary"
+	go build
+
+install:
+	go install ./...	
+
+prerequisites:
+	@echo "Installing prerequisites"
+	go install github.com/golangci/golangci-lint/cmd/golangci-lint@v1.52.2
+
