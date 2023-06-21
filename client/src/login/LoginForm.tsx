@@ -1,18 +1,37 @@
 import React from "react";
-import logo from "./logo.svg";
+import logo from "../logo.svg";
+import { login } from "./loginSlice";
+import { useAppDispatch, useAppSelector } from "../hooks";
+import { Navigate } from "react-router-dom";
 
-function App() {
+function LoginForm() {
+  const dispatch = useAppDispatch();
+  const isLoggedIn = useAppSelector((state) => state.login.isLoggedIn);
+  if (isLoggedIn) {
+    return <Navigate replace to="/" />;
+  }
+
+  const handleSubmit = (event: React.SyntheticEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    const form = event.currentTarget;
+    const formElements = form.elements as typeof form.elements & {
+      email: { value: string };
+      password: { value: string };
+    };
+    dispatch(login({ user: formElements.email.value, password: formElements.password.value}));
+  };
+
   return (
     <div>
       <section className="bg-gray-50 dark:bg-gray-900">
         <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
-        <img src={logo} alt="logo" />
+          <img src={logo} alt="logo" />
           <div className="w-full bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700">
             <div className="p-6 space-y-4 md:space-y-6 sm:p-8">
               <h1 className="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
                 Welcome to my world
               </h1>
-              <form className="space-y-4 md:space-y-6" action="#">
+              <form onSubmit={handleSubmit} className="space-y-4 md:space-y-6" action="#">
                 <div>
                   <input
                     type="email"
@@ -60,18 +79,18 @@ function App() {
                   </a>
                 </div>
                 <button
-                  type="submit"
+                  type="submit"                  
                   className="w-full text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
                 >
                   Sign in
                 </button>
                 <p className="text-sm font-light text-gray-500 dark:text-gray-400">
-                  Don’t have an account yet?{" "}
+                  Don`t have an account yet? 
                   <a
                     href="#register"
                     className="font-medium text-primary-600 hover:underline dark:text-primary-500"
                   >
-                    Sign up
+                    &nbsp;Sign up
                   </a>
                 </p>
               </form>
@@ -83,4 +102,4 @@ function App() {
   );
 }
 
-export default App;
+export default LoginForm;

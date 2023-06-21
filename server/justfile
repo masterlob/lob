@@ -12,7 +12,13 @@ build:
 	go build
 
 install:
-	go install ./...	
+	go install ./...
+
+run:
+	go run main.go
+
+watch:
+	air
 
 prerequisites:
 	@echo "Installing prerequisites"

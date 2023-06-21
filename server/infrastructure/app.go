@@ -10,7 +10,8 @@ import (
 	"time"
 
 	"github.com/julienschmidt/httprouter"
-	"github.com/masterlob/lob/server/companies/api"
+	companiesapi "github.com/masterlob/lob/server/companies/api"
+	"github.com/rs/cors"
 	"github.com/rs/zerolog/log"
 )
 
@@ -35,7 +36,7 @@ func NewApplication() *Application {
 func newApplication(options AppOptions) *Application {
 	router := httprouter.New()
 
-	api.Register(router)
+	companiesapi.Register(router)
 
 	return &Application{
 		&http.Server{
@@ -43,7 +44,9 @@ func newApplication(options AppOptions) *Application {
 			ReadTimeout:       serverReadTimeOut,
 			ReadHeaderTimeout: serverReadHeaderTimeout,
 			WriteTimeout:      serverWriteTimeout,
-			Handler:           router,
+			// FIXME: Setup CORS properly.
+			// https://github.com/rs/cors/tree/master#parameters
+			Handler: cors.Default().Handler(router),
 		}}
 }
 
