@@ -9,3 +9,6 @@ The backend is written in pure go, the frontend a SPA is written in typescript u
 ## Remarks
 Created in 2023 with a tech-stack considered well-matured.
 
+## Timelog
+
+A detailed honest work log can be found in [TIMELOG.md](TIMELOG.md)
